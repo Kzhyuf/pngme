@@ -18,7 +18,7 @@ pub struct Chunk {
 }
 
 impl Chunk {
-    fn new(chunk_type: ChunkType, data: Vec<u8>) -> Self {
+    pub fn new(chunk_type: ChunkType, data: Vec<u8>) -> Self {
         let mut digest = CRC32.digest_with_initial(u32::MAX);
         digest.update(chunk_type.bytes().as_ref());
         digest.update(data.as_slice());
@@ -31,30 +31,30 @@ impl Chunk {
         }
     }
 
-    fn length(&self) -> u32 {
+    pub fn length(&self) -> u32 {
         self.length
     }
 
-    fn chunk_type(&self) -> u32 {
+    pub fn chunk_type(&self) -> u32 {
         u32::from_be_bytes(self.chunk_type.bytes())
     }
 
-    fn data(&self) -> &[u8] {
+    pub fn data(&self) -> &[u8] {
         self.data.as_ref()
     }
 
-    fn crc(&self) -> u32 {
+    pub fn crc(&self) -> u32 {
         self.crc
     }
 
-    fn data_as_string(&self) -> Result<String> {
+    pub fn data_as_string(&self) -> Result<String> {
         match String::from_utf8(self.data.clone()) {
             Ok(str) => Ok(str),
             Err(e) => Err(e.into()),
         }
     }
 
-    fn as_bytes(&self) -> Vec<u8> {
+    pub fn as_bytes(&self) -> Vec<u8> {
         self.data.clone()
     }
 }
