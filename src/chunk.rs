@@ -35,8 +35,8 @@ impl Chunk {
         self.length
     }
 
-    pub fn chunk_type(&self) -> u32 {
-        u32::from_be_bytes(self.chunk_type.bytes())
+    pub fn chunk_type(&self) -> ChunkType {
+        self.chunk_type.clone()
     }
 
     pub fn data(&self) -> &[u8] {
@@ -55,7 +55,12 @@ impl Chunk {
     }
 
     pub fn as_bytes(&self) -> Vec<u8> {
-        self.data.clone()
+        let mut bytes: Vec<u8> = Vec::new();
+        bytes.append(&mut self.length.to_be_bytes().to_vec());
+        bytes.append(&mut self.chunk_type.bytes().to_vec());
+        bytes.append(&mut self.data.clone());
+        bytes.append(&mut self.crc.to_be_bytes().to_vec());
+        bytes
     }
 }
 

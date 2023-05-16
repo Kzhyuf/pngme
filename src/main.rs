@@ -4,7 +4,7 @@ extern crate core;
 mod chunk;
 mod chunk_type;
 // mod commands;
-// mod png;
+mod png;
 
 pub type Error = anyhow::Error;
 pub type Result<T> = std::result::Result<T, Error>;

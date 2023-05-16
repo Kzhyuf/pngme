@@ -14,10 +14,6 @@ pub struct ChunkType([u8; 4]);
 
 
 const MASK: u8 = 32;
-// const Ancillary_MASK: u32 = 1<<5;
-// const Private_MASK: u32 = 1<<13;
-// const Reserved_MASK: u32 = 1<<21;
-// const Safe_To_Copy_MASK: u32 = 1<<29;
 
 impl ChunkType {
     pub fn bytes(&self) -> [u8; 4] {
