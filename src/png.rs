@@ -83,6 +83,13 @@ impl Png {
         Err(anyhow!("Chunk type not found, type = {:?} ", chunk_type))
     }
 
+    pub fn get_chunk(&self, chunk_type: &str) -> Option<&Chunk> {
+        let chunk_type = ChunkType::from_str(chunk_type).ok()?;
+        self.chunks.iter()
+            .position(|chunk| chunk.chunk_type() == chunk_type)
+            .and_then(|pos| self.chunks.get(pos))
+    }
+
     /// The header of this PNG.
     pub fn header(&self) -> &[u8; 8] {
         &self.header
